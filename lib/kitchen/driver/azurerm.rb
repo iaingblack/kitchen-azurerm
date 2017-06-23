@@ -157,6 +157,9 @@ module Kitchen
           info "IP Address is: #{result.ip_configurations[0].private_ipaddress}"
           state[:hostname] = result.ip_configurations[0].private_ipaddress
         end
+
+        info 'Awaiting a connection response via the specified transport.'
+        instance.transport.connection(state).wait_until_ready
       end
 
       def existing_state_value?(state, property)
